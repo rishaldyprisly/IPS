@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+
+<html>
+<style>
+#container {
+  width: 1300px;
+  height: 580px;
+  position: relative;
+  background-image: url("map.png");
+}
+#animate {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  background-image: url("pregnant.png");
+}
+</style>
+<body>
+
+<p>
+<button onclick="myMove()">Click Me</button>
+</p> 
+
+<div id ="container">
+<div id ="animate"></div>
+</div>
+
+<script>
+
+  <?php
+ $con = mysqli_connect("localhost", "root", "", "beacon") or die (mysqli_error());
+            
+              
+ $data = mysqli_query($con, "SELECT * FROM device left join registered on device.MAC = registered.MAC WHERE registered.Visit = 'Active'") or die (mysqli_error());
+?>
+function myMove() {
+  var elem = document.getElementById("animate");   
+  var lat = <?php echo["Loc"];?>;
+  var pos = 450;
+  var id = setInterval(frame, 5);
+  function frame() {
+    if (lat == Receptionist) {
+      pos==700;
+      //clearInterval(id);
+    } else {
+      pos++; 
+      
+      elem.style.top = pos + 'px'; 
+    }
+  }
+}
+</script>
+
+</body>
+</html>

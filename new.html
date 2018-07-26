@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+
+<html>
+<head>
+<style>
+#container {
+  width: 1300px;
+  height: 580px;
+  position: relative;
+  background-image: url("map.png");
+}
+#animate {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  background-image: url("pregnant.png");
+}
+</style>
+
+<script>
+function myMove() {
+
+  var elem = document.getElementById("animate");   
+
+  var pos = 0;
+  var id = setInterval(frame, 5);
+  function frame() {
+    if (pos == '500') {
+      clearIntervalID()
+      
+    } else {
+      pos++; 
+      elem.style.top = pos + 'px'; 
+    }
+  }
+}
+
+
+</script>
+
+</head>
+<body>
+
+<?php
+ $con = mysqli_connect("localhost", "root", "", "beacon") or die (mysqli_error());             
+ $data = mysqli_query($con, "SELECT Loc FROM device left join registered on device.MAC = registered.MAC WHERE registered.Visit = 'Active'") or die (mysqli_error());
+
+ $info = mysqli_fetch_array($data);
+ echo $info['Loc'];
+ $a = '';
+ if($a == 'Receptionist'){
+  ?>
+
+    <script>
+    myMove();
+  </script>
+
+    <?php
+    }
+    ?>
+
+   
+<div id ="container">
+  <p id= "myMove"> <?php echo $info['Loc'];?> </p>
+<div id ="animate"></div>
+</div>
+
+
+</body>
+</html>
